@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<project name="TTX" default="all">
+	<property file="./build.properties" />
+
+	<target name="clean" description="clean the build">
+		<delete quiet="true" dir="${build}" />
+		<mkdir dir="${build}" />
+		<mkdir dir="${build}/classes" />
+		<delete quiet="true" dir="${out}" />
+		<mkdir dir="${out}" />
+	</target>
+
+
+	<target name="compile" depends="clean">
+		<javac srcdir="${src}" encoding="UTF-8" destdir="${build}/classes" fork="true" debug="on" deprecation="off" memoryMaximumSize="512m" source="1.6" target="1.6">
+		    <compilerarg value="-J-Duser.language=en"/>
+		</javac>
+		<copy todir="${build}/classes">
+			<fileset dir="${src}">
+				<include name="**/*.xml" />
+				<include name="**/*.properties" />
+				<exclude name="**/*.java" />
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="create.jar" depends="compile" description="jar the classes in the build directory">
+		<jar destfile="${out}/${app.name}.jar">
+			<fileset dir="${build}/classes">
+				<include name="**/*.class" />
+				<include name="**/*.xml" />
+				<include name="**/*.properties" />
+			</fileset>
+		</jar>
+	</target>
+
+	<target name="all" depends="create.jar" />
+
+</project>
