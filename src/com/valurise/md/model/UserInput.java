@@ -3,7 +3,7 @@ package com.valurise.md.model;
 /**
  * @author xiaodong.tan
  */
-public class UserInput {
+public abstract class UserInput {
 
     protected int questionId;
 
