@@ -33,4 +33,28 @@ SdkHttpResult result = ApiHttpClient.startSession(cid, secretKey, userId, sympto
 
 ```
 
+```java
+String sid = "xxxxx"; //服务号
+
+//userInput参数用来提交用户的答案（第一题可以传null）,包含3种题型:
+//单选题
+UserInput userInput = new SingleSelection(...);
+//多选题
+UserInput userInput = new MultiSelection(...);
+//输入题
+ValueEntry userInput = new ValueEntry(...);
+
+//获取下一个问题/结论
+SdkHttpResult result = ApiHttpClient.fetchQuestion(cid, secretKey, sid, userInput);
+
+```
+
+```java
+String sid = "xxxxx"; //服务号
+
+//回退到上一个问题
+SdkHttpResult result = ApiHttpClient.rollbackQuestion(cid, secretKey, sid);
+
+```
+
 
