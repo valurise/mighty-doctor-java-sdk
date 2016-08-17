@@ -1,11 +1,11 @@
 package com.valurise.md;
 
-import com.valurise.md.model.SdkHttpResult;
-import com.valurise.md.model.UserInput;
+import com.valurise.md.model.*;
 import com.valurise.md.util.HttpUtil;
 import com.valurise.md.util.SignUtil;
 
 import java.net.HttpURLConnection;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,7 +34,7 @@ public class ApiHttpClient {
         params.put("birth", birthday);
         params.put("height", height);
         params.put("weight", weight);
-        String sign = SignUtil.sign(params, cid, ts, secretKey);
+        String sign = SignUtil.sign(null, cid, ts, secretKey);
         String url = MD_SERVER_URI+"/startSession.json?_cid="+cid+"&_ts="+ts+"&_sign="+sign;
         HttpURLConnection conn = HttpUtil.CreateHttpConnection(url, "POST", "application/x-www-form-urlencoded");
         HttpUtil.setBodyParameter(params, conn);
@@ -49,7 +49,7 @@ public class ApiHttpClient {
         String url = MD_SERVER_URI+"/fetchQuestion.json?_cid="+cid+"&_ts="+ts+"&_sign="+sign+"&sid="+sid;
         HttpURLConnection conn = HttpUtil.CreateHttpConnection(url, "POST", "application/json");
         if (userInput!=null) {
-            HttpUtil.setBodyParameter(userInput.toString(), conn);
+            HttpUtil.setBodyParameter("a=1", conn);
         }
         return HttpUtil.returnResult(conn);
     }
