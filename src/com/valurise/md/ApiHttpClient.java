@@ -1,11 +1,11 @@
 package com.valurise.md;
 
-import com.valurise.md.model.*;
+import com.valurise.md.model.SdkHttpResult;
+import com.valurise.md.model.UserInput;
 import com.valurise.md.util.HttpUtil;
 import com.valurise.md.util.SignUtil;
 
 import java.net.HttpURLConnection;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,7 +14,7 @@ import java.util.Map;
  */
 public class ApiHttpClient {
 
-    private static final String MD_SERVER_URI = "http://mydoctor.valurise.com/apis";
+    private static final String MD_SERVER_URI = "http://mydoctor.dev/apis";
 
     public static SdkHttpResult getAllSymptom(String cid, String secretKey) throws Exception {
         String ts = String.valueOf(System.currentTimeMillis());
@@ -64,4 +64,11 @@ public class ApiHttpClient {
         return HttpUtil.returnResult(conn);
     }
 
+    public static SdkHttpResult fetchData(String cid, String secretKey) throws Exception {
+        String ts = String.valueOf(System.currentTimeMillis());
+        String sign = SignUtil.sign(null, cid, ts, secretKey);
+        String url = MD_SERVER_URI+"/fetchData.json?_cid="+cid+"&_ts="+ts+"&_sign="+sign;
+        HttpURLConnection conn = HttpUtil.CreateHttpConnection(url, "POST", "application/x-www-form-urlencoded");
+        return HttpUtil.returnResult(conn);
+    }
 }
