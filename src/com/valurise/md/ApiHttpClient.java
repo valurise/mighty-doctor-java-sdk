@@ -14,7 +14,7 @@ import java.util.Map;
  */
 public class ApiHttpClient {
 
-    private static final String MD_SERVER_URI = "http://mydoctor.dev/apis";
+    private static final String MD_SERVER_URI = "http://mydoctor.valurise.com/apis";
 
     public static SdkHttpResult getAllSymptom(String cid, String secretKey) throws Exception {
         String ts = String.valueOf(System.currentTimeMillis());
