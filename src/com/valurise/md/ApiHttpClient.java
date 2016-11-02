@@ -71,4 +71,17 @@ public class ApiHttpClient {
         HttpURLConnection conn = HttpUtil.CreateHttpConnection(url, "POST", "application/x-www-form-urlencoded");
         return HttpUtil.returnResult(conn);
     }
+
+    public static SdkHttpResult addCustomUserInput(String cid, String secretKey, String sid, UserInput userInput) throws Exception {
+        String ts = String.valueOf(System.currentTimeMillis());
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("sid", sid);
+        String sign = SignUtil.sign(params, cid, ts, secretKey);
+        String url = MD_SERVER_URI+"/addCustomUserInput.json?_cid="+cid+"&_ts="+ts+"&_sign="+sign+"&sid="+sid;
+        HttpURLConnection conn = HttpUtil.CreateHttpConnection(url, "POST", "application/json");
+        if (userInput!=null) {
+            HttpUtil.setBodyParameter(userInput.toString(), conn);
+        }
+        return HttpUtil.returnResult(conn);
+    }
 }

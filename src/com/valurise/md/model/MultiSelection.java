@@ -22,6 +22,8 @@ public class MultiSelection extends UserInput {
                 firstOne = false;
             }
             answers = sb.toString();
+        } else {
+            answers = "";
         }
     }
 
